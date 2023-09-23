@@ -5,16 +5,6 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 export default class ProductsController {
   // responsible for listing
   public async index({}: HttpContextContract) {
-    // return [
-    //   {
-    //     id: 1,
-    //     title: 'Hello world',
-    //   },
-    //   {
-    //     id: 2,
-    //     title: 'Hello universe',
-    //   },
-    // ]
     const products = await Product.all()
 
     return products

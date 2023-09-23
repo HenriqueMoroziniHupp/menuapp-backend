@@ -20,7 +20,7 @@ const corsConfig: CorsConfig = {
   | you can define a function to enable/disable it on per request basis as well.
   |
   */
-  enabled: false,
+  enabled: true,
 
   // You can also use a function that return true or false.
   // enabled: (request) => request.url().startsWith('/api')
@@ -44,7 +44,7 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: ['http://localhost:9000'],
+  origin: ['http://localhost:9000', 'https://menuapp-web.netlify.app'],
 
   /*
   |--------------------------------------------------------------------------

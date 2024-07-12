@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import User from 'App/Models/User'
+import Product from './Product'
 export default class Category extends BaseModel {
   @column({ isPrimary: true })
   public id: number
@@ -17,6 +18,9 @@ export default class Category extends BaseModel {
   // categoria pertence a um usuario
   @belongsTo(() => User, { foreignKey: 'idTenant' })
   public user: BelongsTo<typeof User>
+
+  @hasMany(() => Product, { foreignKey: 'idCategory' })
+  public products: HasMany<typeof Product>
 
   @column.dateTime({ autoCreate: true, serializeAs: null })
   public createdAt: DateTime

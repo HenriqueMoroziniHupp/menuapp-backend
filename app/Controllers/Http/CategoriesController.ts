@@ -4,28 +4,30 @@ import User from 'App/Models/User'
 import { StoreValidator, UpdateValidator } from 'App/Validators/Category/Index'
 
 export default class CategoriesController {
+  // publics methods
   public async index({ params }: HttpContextContract) {
     const { slug } = params
-    if (!slug) return Category.all()
-
     const user = await User.findByOrFail('slug', slug)
-    const categories = await Category.query().where('idTenant', user!.id)
+    const categoriesTenancy = await Category.query().where('idTenant', user.id)
 
-    return categories
+    return categoriesTenancy
   }
 
+  public async show({ params }: HttpContextContract) {
+    const { slug, id } = params
+    const user = await User.findByOrFail('slug', slug)
+    const category = await Category.query().where('idTenant', user.id).where('id', id)
+
+    return category
+  }
+
+  // admin methods
   public async store({ request, auth }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     const user = await auth.authenticate()
     await Category.create({ idTenant: user.id, ...data })
 
     return
-  }
-
-  public async show({ params }: HttpContextContract) {
-    const category = await Category.findOrFail(params.id)
-
-    return category
   }
 
   public async update({ params, request, response, auth }: HttpContextContract) {
@@ -42,9 +44,10 @@ export default class CategoriesController {
 
   public async destroy({ params, auth, response }: HttpContextContract) {
     const { id } = params
+    const tenant = await auth.authenticate()
     const category = await Category.findOrFail(id)
 
-    if (auth.user?.id !== category.idTenant) return response.unauthorized()
+    if (tenant.id !== category.idTenant) return response.unauthorized()
 
     await category.delete()
 

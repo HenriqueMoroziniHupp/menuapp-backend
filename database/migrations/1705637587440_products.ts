@@ -6,22 +6,8 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table
-        .integer('id_tenant')
-        .notNullable()
-        .unsigned()
-        .references('id')
-        .inTable('users')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
-      table
-        .integer('id_category')
-        .notNullable()
-        .unsigned()
-        .references('id')
-        .inTable('categories')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
+      table.integer('id_tenant')
+      table.integer('id_category').unsigned().references('categories.id').onDelete('CASCADE')
       table.string('name').notNullable()
       table.string('description')
       table.string('image_url')

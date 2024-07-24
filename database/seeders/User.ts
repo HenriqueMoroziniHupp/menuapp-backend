@@ -3,7 +3,9 @@ import User from 'App/Models/User'
 
 export default class extends BaseSeeder {
   public async run() {
-    await User.createMany([
+    const uniqueKey = 'id'
+
+    await User.updateOrCreateMany(uniqueKey, [
       {
         id: 1,
         slug: 'upzini',

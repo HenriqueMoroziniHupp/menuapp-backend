@@ -3,7 +3,9 @@ import Product from 'App/Models/Product'
 
 export default class extends BaseSeeder {
   public async run() {
-    await Product.createMany([
+    const uniqueKey = 'idCategory'
+
+    await Product.updateOrCreateMany(uniqueKey, [
       {
         idTenant: 1,
         idCategory: 1,

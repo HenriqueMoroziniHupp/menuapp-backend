@@ -10,11 +10,13 @@ export default class extends BaseSeeder {
         id: 1,
         idTenant: 1,
         name: 'Fritas',
+        status: 'ACTIVE',
       },
       {
         id: 2,
         idTenant: 1,
         name: 'Massas',
+        status: 'ACTIVE',
       },
     ])
   }

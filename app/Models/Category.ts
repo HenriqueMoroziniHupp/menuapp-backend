@@ -6,7 +6,7 @@ export default class Category extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: null })
   public idTenant: number
 
   @column()
@@ -14,6 +14,9 @@ export default class Category extends BaseModel {
 
   @column()
   public icon: string
+
+  @column()
+  public status: 'ACTIVE' | 'INACTIVE'
 
   // categoria pertence a um usuario
   @belongsTo(() => User, { foreignKey: 'idTenant' })

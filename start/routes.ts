@@ -8,6 +8,9 @@ Route.delete('/admin/auth', 'AuthController.destroy').middleware('auth')
 Route.get('/admin/users', 'UsersController.index').middleware(['acl:superadmin'])
 Route.post('/admin/users', 'UsersController.store').middleware(['acl:superadmin'])
 
+// Me
+Route.get('/admin/me', 'UsController.handle')
+
 // Products ---------
 Route.group(() => {
   Route.group(() => {

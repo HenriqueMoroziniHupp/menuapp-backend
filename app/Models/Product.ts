@@ -5,10 +5,10 @@ export default class Product extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: null })
   public idTenant: number
 
-  @column()
+  @column({ serializeAs: null })
   public idCategory: number
 
   // produto pertence a uma categoria
@@ -20,6 +20,9 @@ export default class Product extends BaseModel {
 
   @column()
   public description: string
+
+  @column()
+  public status: 'ACTIVE' | 'OUTOFSTOCK' | 'INACTIVE'
 
   @column()
   public imageUrl: string

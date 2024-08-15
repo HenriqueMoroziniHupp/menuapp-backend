@@ -11,15 +11,17 @@ export default class ProductsController {
     const { slug, idCategory } = params
     const user = await User.findByOrFail('slug', slug)
 
+    // TODO: turn method for admin, because list INACTIVE products
     if (idCategory) {
       const products = await Product.query()
         .where('idTenant', user.id)
         .where('idCategory', idCategory)
+        .preload('category')
 
       return products
     }
 
-    const productsAll = await Product.query().where('idTenant', user!.id)
+    const productsAll = await Product.query().where('idTenant', user!.id).preload('category')
 
     return productsAll
   }

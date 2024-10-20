@@ -9,7 +9,6 @@ export default class extends BaseSchema {
       table.integer('id_tenant').unsigned().references('users.id').onDelete('CASCADE')
       table.string('name').notNullable()
       table.enum('status', ['ACTIVE', 'INACTIVE']).notNullable()
-      table.string('icon')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

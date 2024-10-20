@@ -25,9 +25,9 @@ export default class CategoriesController {
   public async store({ request, auth }: HttpContextContract) {
     const data = await request.validate(StoreValidator)
     const user = await auth.authenticate()
-    await Category.create({ idTenant: user.id, ...data })
+    const newCategory = await Category.create({ idTenant: user.id, ...data })
 
-    return
+    return newCategory
   }
 
   public async update({ params, request, response, auth }: HttpContextContract) {

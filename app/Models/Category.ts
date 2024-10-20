@@ -13,9 +13,6 @@ export default class Category extends BaseModel {
   public name: string
 
   @column()
-  public icon: string
-
-  @column()
   public status: 'ACTIVE' | 'INACTIVE'
 
   // categoria pertence a um usuario

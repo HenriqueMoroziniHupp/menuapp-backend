@@ -8,6 +8,7 @@ export class UpdateValidator {
     idCategory: schema.number.optional(),
     name: schema.string.optional({ trim: true }),
     description: schema.string.optional({ trim: true }),
+    status: schema.enum.optional(['ACTIVE', 'OUTOFSTOCK', 'INACTIVE'] as const),
     imageUrl: schema.string.optional(),
     priceSmall: schema.number.optional(),
     priceMedium: schema.number.optional(),

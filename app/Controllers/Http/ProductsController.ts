@@ -93,7 +93,7 @@ export default class ProductsController {
     product.merge(data)
     await product.save()
 
-    return product
+    return
   }
 
   public async destroy({ params, auth, response }: HttpContextContract) {

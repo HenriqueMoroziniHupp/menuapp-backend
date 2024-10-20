@@ -9,5 +9,8 @@ export class StoreValidator {
     email: schema.string({ trim: true }),
     name: schema.string({ trim: true }),
     password: schema.string({ trim: true }),
+    description: schema.string.optional({ trim: true }),
+    bannerUrl: schema.string.optional({ trim: true }),
+    status: schema.enum(['PENDING', 'ACTIVE', 'BLOCKED', 'TERMINATED', 'TRIAL'] as const),
   })
 }

@@ -9,7 +9,11 @@ export default class extends BaseSchema {
       table.string('slug', 255).notNullable().unique()
       table.string('email', 255).notNullable().unique()
       table.string('name', 255).notNullable()
-      table.string('status')
+      table.string('description', 255)
+      table
+        .enum('status', ['PENDING', 'ACTIVE', 'BLOCKED', 'TERMINATED', 'TRIAL'])
+        .defaultTo('PENDING')
+      table.string('banner_url')
       table.string('password', 255).notNullable()
       table.enum('role', ['superadmin', 'admin']).defaultTo('admin')
       table.string('remember_me_token').nullable()

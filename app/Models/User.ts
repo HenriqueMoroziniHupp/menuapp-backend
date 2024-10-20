@@ -16,6 +16,15 @@ export default class User extends BaseModel {
   @column()
   public name: string
 
+  @column()
+  public description: string
+
+  @column()
+  public status: string
+
+  @column()
+  public bannerUrl: string
+
   @column({ serializeAs: null })
   public password: string
 

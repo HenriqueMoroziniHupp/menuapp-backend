@@ -9,18 +9,21 @@ export default class extends BaseSeeder {
       {
         id: 1,
         slug: 'upzini',
-        email: 'henriquemhpp@upzini.com',
+        email: 'upzini@upzini.com',
         name: 'Up-Zini Petiscaria',
-        password: 'secret',
+        description: 'Bebidas especiais e petiscos inigualavel',
+        password: 'Qwer123#',
         role: 'superadmin',
       },
       {
         id: 2,
-        slug: 'hmpp',
-        email: 'henriquemhpp@gmail.com',
-        name: 'Hmpp Lanchonete',
-        password: 'secret',
-        role: 'superadmin',
+        slug: 'pioneiro',
+        email: 'pioneiro@upzini.com',
+        name: 'Restaurante Pioneiro',
+        description: 'O Sabor Pantaneiro está aqui! Venha Saborear!',
+        bannerUrl: 'https://media-cdn.tripadvisor.com/media/photo-s/1b/4d/61/c4/fachada.jpg',
+        password: 'Qwer123#',
+        role: 'admin',
       },
     ])
     // Write your database queries inside the run method

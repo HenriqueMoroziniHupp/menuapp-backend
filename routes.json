@@ -1,0 +1,166 @@
+{
+  "root": [
+    {
+      "domain": "root",
+      "name": "drive.local.serve",
+      "pattern": "/uploads/*",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "Closure",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "",
+      "pattern": "/",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "ProductsController.index",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "product_slug.index",
+      "pattern": "/product/:slug",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "ProductsController.index",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "product_slug.store",
+      "pattern": "/product/:slug",
+      "methods": [
+        "POST"
+      ],
+      "handler": "ProductsController.store",
+      "middleware": [
+        "acl:superadmin,admin"
+      ]
+    },
+    {
+      "domain": "root",
+      "name": "product_slug.show",
+      "pattern": "/product/:slug/:id",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "ProductsController.show",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "product_slug.update",
+      "pattern": "/product/:slug/:id",
+      "methods": [
+        "PUT",
+        "PATCH"
+      ],
+      "handler": "ProductsController.update",
+      "middleware": [
+        "acl:superadmin,admin"
+      ]
+    },
+    {
+      "domain": "root",
+      "name": "product_slug.destroy",
+      "pattern": "/product/:slug/:id",
+      "methods": [
+        "DELETE"
+      ],
+      "handler": "ProductsController.destroy",
+      "middleware": [
+        "acl:superadmin,admin"
+      ]
+    },
+    {
+      "domain": "root",
+      "name": "",
+      "pattern": "/auth",
+      "methods": [
+        "POST"
+      ],
+      "handler": "AuthController.store",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "",
+      "pattern": "/auth",
+      "methods": [
+        "DELETE"
+      ],
+      "handler": "AuthController.destroy",
+      "middleware": [
+        "auth"
+      ]
+    },
+    {
+      "domain": "root",
+      "name": "categories.index",
+      "pattern": "/categories",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "CategoriesController.index",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "categories.store",
+      "pattern": "/categories",
+      "methods": [
+        "POST"
+      ],
+      "handler": "CategoriesController.store",
+      "middleware": [
+        "acl:superadmin,admin"
+      ]
+    },
+    {
+      "domain": "root",
+      "name": "categories.show",
+      "pattern": "/categories/:id",
+      "methods": [
+        "GET",
+        "HEAD"
+      ],
+      "handler": "CategoriesController.show",
+      "middleware": []
+    },
+    {
+      "domain": "root",
+      "name": "categories.update",
+      "pattern": "/categories/:id",
+      "methods": [
+        "PUT",
+        "PATCH"
+      ],
+      "handler": "CategoriesController.update",
+      "middleware": [
+        "acl:superadmin,admin"
+      ]
+    },
+    {
+      "domain": "root",
+      "name": "categories.destroy",
+      "pattern": "/categories/:id",
+      "methods": [
+        "DELETE"
+      ],
+      "handler": "CategoriesController.destroy",
+      "middleware": [
+        "acl:superadmin,admin"
+      ]
+    }
+  ]
+}

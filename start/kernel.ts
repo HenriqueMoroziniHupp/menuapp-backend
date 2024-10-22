@@ -1,3 +1,7 @@
+import { BaseModel } from '@ioc:Adonis/Lucid/Orm'
+import { CamelCaseNamingStrategy } from 'App/Strategies/CamelCaseNamingStrategy'
+BaseModel.namingStrategy = new CamelCaseNamingStrategy()
+
 /*
 |--------------------------------------------------------------------------
 | Application middleware
@@ -38,4 +42,7 @@ Server.middleware.register([() => import('@ioc:Adonis/Core/BodyParser')])
 | Route.get('dashboard', 'UserController.dashboard').middleware('auth')
 |
 */
-Server.middleware.registerNamed({})
+Server.middleware.registerNamed({
+  auth: () => import('App/Middleware/Auth'),
+  acl: () => import('App/Middleware/Acl'),
+})

@@ -44,7 +44,9 @@ const corsConfig: CorsConfig = {
   |                     one of the above values.
   |
   */
-  origin: ['http://localhost:9000', 'https://menuapp-web.netlify.app'],
+  origin: (requestOrigin: string) => {
+    return requestOrigin.includes('upzini')
+  },
 
   /*
   |--------------------------------------------------------------------------

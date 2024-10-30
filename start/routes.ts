@@ -1,5 +1,6 @@
 import Route from '@ioc:Adonis/Core/Route'
 
+Route.get('/', () => 'Hello UpZini')
 // Authentication
 Route.post('/admin/auth', 'AuthController.store')
 Route.delete('/admin/auth', 'AuthController.destroy').middleware('auth')

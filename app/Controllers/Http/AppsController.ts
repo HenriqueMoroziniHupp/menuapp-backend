@@ -19,7 +19,7 @@ export default class AppsController {
       .where('idTenant', user.id)
       .has('products')
       .preload('products', (query) => {
-        query.whereNot('status', 'INACTIVE')
+        query.whereNot('status', 'INACTIVE').preload('prices')
       })
 
     return categoriesWithProducts

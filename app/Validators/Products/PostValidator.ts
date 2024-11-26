@@ -10,9 +10,11 @@ export class PostValidator {
     description: schema.string.optional({ trim: true }),
     status: schema.enum(['ACTIVE', 'OUTOFSTOCK', 'INACTIVE'] as const),
     imageUrl: schema.string.optional(),
-    priceSmall: schema.number.optional(),
-    priceMedium: schema.number.optional(),
-    priceLarge: schema.number.optional(),
-    priceSingle: schema.number.optional(),
+    prices: schema.array.optional().members(
+      schema.object().members({
+        name: schema.string({ trim: true }),
+        price: schema.number(),
+      })
+    ),
   })
 }

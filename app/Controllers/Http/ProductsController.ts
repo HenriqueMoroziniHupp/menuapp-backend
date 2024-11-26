@@ -4,6 +4,7 @@ import User from 'App/Models/User'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import { PostValidator, UpdateValidator } from 'App/Validators/Products/Index'
 import Category from 'App/Models/Category'
+import Price from 'App/Models/Price'
 
 export default class ProductsController {
   // responsible for listing
@@ -17,11 +18,15 @@ export default class ProductsController {
         .where('idTenant', user.id)
         .where('idCategory', idCategory)
         .preload('category')
+        .preload('prices')
 
       return products
     }
 
-    const productsAll = await Product.query().where('idTenant', user!.id).preload('category')
+    const productsAll = await Product.query()
+      .where('idTenant', user!.id)
+      .preload('category')
+      .preload('prices')
 
     return productsAll
   }
@@ -31,6 +36,7 @@ export default class ProductsController {
     const product = await Product.findOrFail(params.id)
 
     await product.load('category')
+    await product.load('prices')
 
     return product
   }
@@ -57,12 +63,20 @@ export default class ProductsController {
         await imageData.image.moveToDisk('images', {}, 's3')
         data.imageUrl = imageData.image.filePath
       } catch (error) {
-        console.warn(error)
+        return response.badRequest()
       }
     }
 
     const product = await Product.create({ idTenant: tenant.id, ...data })
-    return product
+    if (data.prices && data.prices.length) {
+      await Price.createMany(
+        data.prices.map((price) => ({
+          idProduct: product.id,
+          ...price,
+        }))
+      )
+    }
+    return
   }
 
   public async update({ request, params, auth, response }: HttpContextContract) {
@@ -75,7 +89,7 @@ export default class ProductsController {
     const imageData = await request.validate({
       schema: schema.create({
         image: schema.file.optional({
-          size: '5mb',
+          size: '1mb',
           extnames: ['jpg', 'jpeg', 'png', 'webp'],
         }),
       }),
@@ -86,12 +100,38 @@ export default class ProductsController {
         await imageData.image.moveToDisk('images', {}, 's3')
         data.imageUrl = imageData.image.filePath
       } catch (error) {
-        console.warn(error)
+        return response.badRequest()
       }
     }
 
     product.merge(data)
     await product.save()
+
+    const prices = data.prices
+    if (!prices) return
+
+    const updatesPrices = prices.filter((price) => price.id)
+    const newPrices = prices.filter((price) => !price.id)
+    const payloadPriceIds = updatesPrices.map((price) => price.id) as number[]
+
+    const pricesDb = await Price.findMany(payloadPriceIds)
+    const unauthorizedPrices = pricesDb.some((price) => price.idProduct !== product.id)
+    if (unauthorizedPrices) return response.unauthorized()
+
+    await Price.query().where('id_product', product.id).whereNotIn('id', payloadPriceIds).delete()
+
+    if (updatesPrices.length) {
+      await Price.updateOrCreateMany('id', updatesPrices)
+    }
+
+    if (newPrices.length) {
+      await Price.createMany(
+        newPrices.map((price) => ({
+          ...price,
+          idProduct: product.id,
+        }))
+      )
+    }
 
     return
   }

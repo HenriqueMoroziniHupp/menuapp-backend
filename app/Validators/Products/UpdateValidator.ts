@@ -10,9 +10,12 @@ export class UpdateValidator {
     description: schema.string.optional({ trim: true }),
     status: schema.enum.optional(['ACTIVE', 'OUTOFSTOCK', 'INACTIVE'] as const),
     imageUrl: schema.string.optional(),
-    priceSmall: schema.number.optional(),
-    priceMedium: schema.number.optional(),
-    priceLarge: schema.number.optional(),
-    priceSingle: schema.number.optional(),
+    prices: schema.array.optional().members(
+      schema.object().members({
+        name: schema.string.optional({ trim: true }),
+        price: schema.number.optional(),
+        id: schema.number.optional(),
+      })
+    ),
   })
 }

@@ -23,7 +23,7 @@ export default class Product extends BaseModel {
   public name: string
 
   @column()
-  public description: string
+  public description: string | null
 
   @column()
   public status: 'ACTIVE' | 'OUTOFSTOCK' | 'INACTIVE'

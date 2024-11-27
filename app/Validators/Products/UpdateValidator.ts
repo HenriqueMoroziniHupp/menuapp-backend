@@ -7,7 +7,7 @@ export class UpdateValidator {
   public schema = schema.create({
     idCategory: schema.number.optional(),
     name: schema.string.optional({ trim: true }),
-    description: schema.string.optional({ trim: true }),
+    description: schema.string.nullableAndOptional({ trim: true }),
     status: schema.enum.optional(['ACTIVE', 'OUTOFSTOCK', 'INACTIVE'] as const),
     imageUrl: schema.string.optional(),
     prices: schema.array.optional().members(

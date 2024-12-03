@@ -57,3 +57,4 @@ Route.put('/admin/settings/:slug', 'ClientsController.update').middleware(['acl:
 // App
 Route.get('/:slug/products', 'AppsController.indexCategoriesWithProducts')
 Route.get('/client/:slug', 'AppsController.indexClient')
+Route.get('/app/:slug', 'AppsController.appIndex')

@@ -24,4 +24,23 @@ export default class AppsController {
 
     return categoriesWithProducts
   }
+
+  public async appIndex({ params }: HttpContextContract) {
+    const { slug } = params
+
+    const all = await User.query()
+      .where('slug', slug)
+      .has('categories')
+      .preload('categories', (categoryQuery) => {
+        categoryQuery
+          .has('products')
+          .whereNot('status', 'INACTIVE')
+          .preload('products', (queryProduct) => {
+            queryProduct.whereNot('status', 'INACTIVE').preload('prices')
+          })
+      })
+      .firstOrFail()
+
+    return all
+  }
 }
